@@ -1,0 +1,71 @@
+<form>
+  <div>
+    <label>Логин</label>
+    <input *ngFor
+      type="text"
+      name="login"
+      [(ngModel)]="loginForm.login"
+      required
+    />
+  </div>
+  <div>
+    <label>Пароль</label>
+    <input
+      type="password"
+      name="pass"
+      [(ngModel)]="loginForm.password"
+      required
+    />
+  </div>
+
+  <button (click)="test()">Войти</button>
+</form>
+
+
+<div [formGroup]="settingsForm" class="form-container" action="">
+
+
+  <div>
+    <div>
+      <label class="label" for="fallingSpeed">Falling Speed: </label>
+      <div>
+        <input class="fld"
+               id="fallingSpeed" type="number" formControlName="fallingSpeed">
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <label class="label" for="fallingFrequency">Falling Frequency: </label>
+      <div>
+        <input class="fld" id="fallingFrequency" type="number" formControlName="fallingFrequency">
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <label class="label" for="playerSpeed">Player Speed: </label>
+      <div>
+        <input class="fld" id="playerSpeed" type="number" formControlName="playerSpeed">
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <label class="label" for="gameTime">Game Time: </label>
+      <div>
+        <input class="fld" id="gameTime" type="number" formControlName="gameTime">
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="button"
+            (click)="restartGame()">
+      Start
+    </button>
+  </div>
+</div>
+
+
+
+

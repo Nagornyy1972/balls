@@ -1,1 +1,62 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+$defaultFont: Gilroy-Regular;
+
+$input-background-color: white;
+$input-text-color: grey;
+$border-color: lightgrey;
+$border-radius: 4px;
+
+@font-face {
+  font-family: Gilroy-Regular;
+  src: url('./assets/fonts/gilroy-regular.ttf');
+}
+
+@mixin fontFactory($fontSize: 17px, $fontWeight: 600, $fontFamily: $defaultFont, $lineHeight: 20px) {
+  font-size: $fontSize;
+  font-family: $fontFamily;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  font-style: normal;
+}
+.fld {
+  @include fontFactory();
+  background: $input-background-color;
+  border-radius: $border-radius;
+  color: $input-text-color;
+  box-sizing: border-box;
+  border: 1px solid $input-text-color;
+  outline: none;
+  height: 44px;
+  margin: 4px;
+  padding: 12px;
+  -webkit-box-shadow: 0 0 0 1000px $input-background-color inset;
+}
+
+.fld:focus {
+  background: $input-background-color;
+  border: 0.5px solid $border-color;
+  box-sizing: border-box;
+  border-radius: $border-radius;
+}
+
+.label {
+  @include fontFactory();
+  color: lightgray;
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.invalid {
+  border: 1px solid red;
+}
+
+button {
+  @include fontFactory();
+  height: 44px;
+  padding: 4px;
+  margin: 4px;
+}
