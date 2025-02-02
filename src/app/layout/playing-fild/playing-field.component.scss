@@ -1,3 +1,7 @@
 .playing-field-container {
-
+  border: 2px solid lightgrey;
+  border-radius: 8px;
+  width: calc(100vw - 48px);
+  height: calc(100vh - 200px);
+  margin: 16px;
 }

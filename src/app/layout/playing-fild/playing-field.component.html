@@ -1,1 +1,4 @@
-<div class="playing-field-container"></div>
+<div class="playing-field-container">
+  <app-character [posX]="characterPosition"/>
+  <app-ball *ngFor="let ball of balls" [ball]="ball" (destroyBall)="destroyBall()"/>
+</div>

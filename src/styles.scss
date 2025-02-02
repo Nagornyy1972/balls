@@ -4,7 +4,7 @@ $defaultFont: Gilroy-Regular;
 
 $input-background-color: white;
 $input-text-color: grey;
-$border-color: lightgrey;
+$border-color: grey;
 $border-radius: 4px;
 
 @font-face {
@@ -28,7 +28,8 @@ $border-radius: 4px;
   border: 1px solid $input-text-color;
   outline: none;
   height: 44px;
-  margin: 4px;
+  min-width: 230px;
+  margin-top: 4px;
   padding: 12px;
   -webkit-box-shadow: 0 0 0 1000px $input-background-color inset;
 }
@@ -42,11 +43,11 @@ $border-radius: 4px;
 
 .label {
   @include fontFactory();
-  color: lightgray;
+  color: gray;
 }
 
 .disabled {
-  opacity: 0.3;
+  opacity: 0.1;
   cursor: default;
 }
 
@@ -58,5 +59,12 @@ button {
   @include fontFactory();
   height: 44px;
   padding: 4px;
-  margin: 4px;
+  margin-top: 4px;
+  color: grey;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+}
+
+button:active {
+  color: darkgray;
 }

@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
 import {Settings} from '../../Models/settings';
+import {SettingsService} from '../../Services/settings.service';
+import {constants} from '../../Models/constants';
 
 @Component({
   standalone: false,
@@ -10,26 +12,47 @@ import {Settings} from '../../Models/settings';
 })
 export class SettingsComponent {
 
-  protected settings: Settings = new Settings();
+  @Input() gameStarted = false;
+  @Output() private restartGameEmitter: EventEmitter<Settings> = new EventEmitter<Settings>();
+  public scorePoints = 0;
+  private formBuilder: FormBuilder = new FormBuilder();
 
-  public settingsForm: FormGroup = new FormGroup({
-    fallingSpeed: new FormControl(this.settings.fallingSpeed,[Validators.required, Validators.min(1)]),
-    fallingFrequency: new FormControl(this.settings.fallingFrequency,[Validators.required, Validators.min(1)]),
-    playerSpeed: new FormControl(this.settings.playerSpeed,[Validators.required, Validators.min(1)]),
-    gameTime: new FormControl(this.settings.gameTime,[Validators.required, Validators.min(1)])
+  settingsForm = this.formBuilder.group({
+    fallingSpeed: [constants.INIT_FALLING_SPEED, [Validators.required, Validators.min(1)]],
+    fallingFrequency: [constants.INIT_FALLING_FREQUENCY, [Validators.required, Validators.min(1)]],
+    playerSpeed: [constants.INIT_PLAYER_SPEED, [Validators.required, Validators.min(1)]],
+    gameTime: [constants.INIT_GAME_TIME, [Validators.required, Validators.min(1)]]
   });
 
+  constructor(private settingsService: SettingsService) {
+  }
+
+  public getLeftTime() {
+    return this.settingsService.leftTime;
+  }
+
+  public setLeftTime() {
+    return this.settingsService.leftTime.next(this.settingsForm.controls.gameTime.value as number);
+  }
+
   public restartGame(): void {
-    console.log(this.settingsForm.invalid)
+    this.scorePoints = 0;
+    this.restartGameEmitter.emit(this.settingsForm.value as Settings);
   }
 
-  test() {
-    console.log(this.loginForm)
+  public updateSettings(settingsProperty: string): void {
+    switch (settingsProperty) {
+      case 'playerSpeed':
+        this.settingsForm.controls.playerSpeed.patchValue(Math.max(1, this.settingsForm.controls.playerSpeed.value as number));
+        break;
+      case 'fallingSpeed':
+        this.settingsForm.controls.fallingSpeed.patchValue(Math.max(1, this.settingsForm.controls.fallingSpeed.value as number));
+        this.settingsService.fallingSpeedUpdated.next(this.settingsForm.value as Settings);
+        break;
+      case 'fallingFrequency':
+        this.settingsForm.controls.fallingFrequency.patchValue(Math.max(1, this.settingsForm.controls.fallingFrequency.value as number));
+        this.settingsService.fallingFrequencyUpdated.next(this.settingsForm.value as Settings);
+    }
   }
-
-  loginForm: any = {
-    login: '',
-    password: '',
-  };
 }
 

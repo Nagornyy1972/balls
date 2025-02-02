@@ -1,0 +1,9 @@
+.character {
+  position: fixed;
+  border: 5px solid green;
+  border-top: none;
+  width: 100px;
+  min-height: 20px;
+  bottom: 64px;
+  left: calc(50vw - 50px);
+}
