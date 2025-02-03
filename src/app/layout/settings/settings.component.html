@@ -1,7 +1,7 @@
 <form [formGroup]="settingsForm" class="form-container" (ngSubmit)="restartGame()">
   <div>
     <div>
-      <label class="label" for="fallingSpeed">Falling Speed: (1px in {{settingsForm.controls.fallingSpeed.value}}ms)</label>
+      <label class="label" for="fallingSpeed">Falling Speed: 1px in {{settingsForm.controls.fallingSpeed.value}}ms</label>
       <div>
         <input class="fld"
                (input)="updateSettings('fallingSpeed')"
@@ -12,7 +12,7 @@
   </div>
   <div>
     <div>
-      <label class="label" for="fallingFrequency">Frequency: (1 ball in {{settingsForm.controls['fallingFrequency'].value}} ms)</label>
+      <label class="label" for="fallingFrequency">Frequency: 1 ball in {{settingsForm.controls['fallingFrequency'].value}}ms</label>
       <div>
         <input class="fld"
                (input)="updateSettings('fallingFrequency')"
@@ -23,7 +23,7 @@
   </div>
   <div>
     <div>
-      <label class="label" for="playerSpeed">Player Speed: {{settingsForm.controls.playerSpeed.value}}px </label>
+      <label class="label" for="playerSpeed">Player Speed: {{settingsForm.controls.playerSpeed.value}}px in 10ms </label>
       <div>
         <input class="fld"
                (input)="updateSettings('playerSpeed')"
@@ -34,7 +34,7 @@
   </div>
   <div>
     <div>
-      <label class="label" for="gameTime">Time left: {{getLeftTime() | async}} / {{settingsForm.controls.gameTime.value}} s</label>
+      <label class="label" for="gameTime">Time left: {{getLeftTime() | async}}s / {{settingsForm.controls.gameTime.value}}s</label>
       <div>
         <input class="fld"
                (input)="settingsForm.valid && gameStarted ? restartGame() : setLeftTime()"

@@ -44,6 +44,7 @@ export class SettingsComponent {
     switch (settingsProperty) {
       case 'playerSpeed':
         this.settingsForm.controls.playerSpeed.patchValue(Math.max(1, this.settingsForm.controls.playerSpeed.value as number));
+        this.settingsService.playerSpeedUpdated.next(this.settingsForm.value as Settings);
         break;
       case 'fallingSpeed':
         this.settingsForm.controls.fallingSpeed.patchValue(Math.max(1, this.settingsForm.controls.fallingSpeed.value as number));

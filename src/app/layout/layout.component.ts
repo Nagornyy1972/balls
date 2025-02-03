@@ -1,8 +1,9 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Settings} from '../Models/settings';
-import {map, Subscription, timer} from 'rxjs';
+import {map, Subscription, takeUntil, timer} from 'rxjs';
 import {SettingsComponent} from './settings/settings.component';
 import {SettingsService} from '../Services/settings.service';
+import {BaseComponent} from '../Shared-components/base.component';
 
 @Component({
   standalone: false,
@@ -10,7 +11,7 @@ import {SettingsService} from '../Services/settings.service';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnDestroy {
+export class LayoutComponent extends BaseComponent {
   public gameStarted = false;
   public gameSettings: Settings = new Settings();
 
@@ -19,6 +20,7 @@ export class LayoutComponent implements OnDestroy {
   private gameOverSubscription: Subscription = new Subscription();
 
   constructor(private settingsService: SettingsService) {
+    super();
   }
 
   public restartGame(settings: Settings) {
@@ -28,7 +30,7 @@ export class LayoutComponent implements OnDestroy {
     this.gameStarted = false;
     setTimeout(() => {
       this.gameStarted = true;
-      this.gameOverSubscription = timer(1000, 1000).pipe(map(sc => this.gameSettings.gameTime - sc)).subscribe( (sc) => {
+      this.gameOverSubscription = timer(1000, 1000).pipe(map(sc => this.gameSettings.gameTime - sc), takeUntil(this.destroy)).subscribe( (sc) => {
         this.settingsService.leftTime.next(sc);
         if (sc <= 0) {
           this.gameOverSubscription.unsubscribe();
@@ -36,13 +38,5 @@ export class LayoutComponent implements OnDestroy {
         }
       });
     }, 10)
-  }
-
-  public getPlayerSpeed() {
-    return this.settingsComponent?.settingsForm.controls['playerSpeed'].value as number;
-  }
-
-  ngOnDestroy() {
-    this.gameOverSubscription.unsubscribe();
   }
 }

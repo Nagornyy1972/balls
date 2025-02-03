@@ -8,6 +8,7 @@ import {constants} from '../Models/constants';
 })
 export class SettingsService {
   fallingSpeedUpdated: BehaviorSubject<Settings> = new BehaviorSubject<Settings>(new Settings());
+  playerSpeedUpdated: BehaviorSubject<Settings> = new BehaviorSubject<Settings>(new Settings());
   fallingFrequencyUpdated: BehaviorSubject<Settings> = new BehaviorSubject<Settings>(new Settings());
   leftTime: BehaviorSubject<number> = new BehaviorSubject<number>(constants.INIT_GAME_TIME);
 }

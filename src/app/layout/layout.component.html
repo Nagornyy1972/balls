@@ -1,6 +1,5 @@
 <app-settings #settingsComponent [gameStarted]="gameStarted"
               (restartGameEmitter)="restartGame($event)"/>
 <app-playing-field *ngIf="gameStarted"
-                   [playerSpeed]="getPlayerSpeed()"
                    (scorePointsEmitter)="settingsComponent.scorePoints = $event"/>
 
