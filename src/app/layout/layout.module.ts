@@ -8,6 +8,7 @@ import {AsyncPipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {CharacterComponent} from './playing-fild/character/character.component';
 import {BallComponent} from './playing-fild/ball/ball.component';
 import {SettingsService} from '../Services/settings.service';
+import {WebSocketService} from '../Services/web-socket.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {SettingsService} from '../Services/settings.service';
         AsyncPipe
     ],
   providers: [
-    SettingsService
+    SettingsService,
+    WebSocketService
   ],
 })
 export class LayoutModule { }

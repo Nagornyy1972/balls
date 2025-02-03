@@ -10,7 +10,6 @@ import {BaseComponent} from './base.component';
   providers: [
   ],
   declarations: [
-    BaseComponent
   ],
   entryComponents: [
 

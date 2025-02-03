@@ -5,6 +5,8 @@ import {debounceTime, interval, Subscription, takeUntil} from 'rxjs';
 import {SettingsService} from '../../Services/settings.service';
 import {BaseComponent} from '../../Shared-components/base.component';
 import {CharacterComponent} from './character/character.component';
+import {WebSocketService} from '../../Services/web-socket.service';
+import {CaughtObjects} from '../../Models/socket';
 
 @Component({
   standalone: false,
@@ -21,7 +23,7 @@ export class PlayingFieldComponent extends BaseComponent implements OnInit {
 
   public balls: Ball[] = [];
 
-  constructor(private settingsService: SettingsService) {
+  constructor(private settingsService: SettingsService, private webSocketService: WebSocketService) {
     super();
   }
 
@@ -46,6 +48,7 @@ export class PlayingFieldComponent extends BaseComponent implements OnInit {
   destroyBall() {
     if (this.characterComponent && this.balls[0].x < this.characterComponent?.posX + constants.CHARACTER_WIDTH && this.balls[0].x > this.characterComponent?.posX) {
       this.scorePointsEmitter.emit(++this.scorePoints);
+      this.webSocketService.sendToSocket(JSON.stringify(new CaughtObjects(this.scorePoints)));
     }
     this.balls.splice(0, 1);
   }
