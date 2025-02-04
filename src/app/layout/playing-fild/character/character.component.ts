@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {constants} from '../../../Models/constants';
 import {SettingsService} from '../../../Services/settings.service';
 import {debounceTime, fromEvent, interval, merge, Observable, takeUntil} from 'rxjs';
@@ -8,6 +8,7 @@ import {BaseComponent} from '../../../Shared-components/base.component';
 @Component({
   standalone: false,
   selector: 'app-character',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './character.component.html',
   styleUrl: './character.component.scss'
 })
@@ -19,7 +20,8 @@ export class CharacterComponent extends BaseComponent implements OnInit {
   private playerSpeed = 0;
 
 
-  constructor(private settingsService: SettingsService) {
+  constructor(private settingsService: SettingsService,
+              private changeDetection: ChangeDetectorRef) {
     super()
   }
 
@@ -37,6 +39,7 @@ export class CharacterComponent extends BaseComponent implements OnInit {
       } else if (this.movementState === 'left') {
         this.posX = (this.posX - this.playerSpeed) <= leftBorder ? leftBorder : this.posX - this.playerSpeed;
       }
+      this.changeDetection.markForCheck();
     });
 
     this.keyActions = merge(fromEvent(document, 'keydown'), fromEvent(document, 'keyup')) as Observable<KeyboardEvent>;

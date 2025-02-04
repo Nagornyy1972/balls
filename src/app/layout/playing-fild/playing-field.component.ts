@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {constants} from '../../Models/constants';
 import {Ball} from '../../Models/ball';
 import {debounceTime, interval, Subscription, takeUntil} from 'rxjs';
@@ -10,6 +10,7 @@ import {CaughtObjects} from '../../Models/socket';
 
 @Component({
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-playing-field',
   templateUrl: './playing-field.component.html',
   styleUrl: './playing-field.component.scss'
