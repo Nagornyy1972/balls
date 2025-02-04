@@ -44,7 +44,6 @@ export class BallComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit() {
-    //this.falling = this.getFalling(this.settingsService.fallingSpeedUpdated.getValue().fallingSpeed);
     this.settingsService.fallingSpeedUpdated.pipe(debounceTime(100), takeUntil(this.destroy)).subscribe( (settings: Settings) => {
       this.falling.unsubscribe();
       this.falling = this.getFalling(settings.fallingSpeed);
